@@ -1,6 +1,6 @@
+dateutil
 flask
 requests==2.22.0
 flask-cors
 pytz
 beautifulsoup4
-dateutil.parser
