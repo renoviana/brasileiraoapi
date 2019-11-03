@@ -25,7 +25,7 @@ def getSerie(serie):
 
 
 @app.route('/<serie>/classificacao')
-def getSerie(serie):
+def getClassificacao(serie):
     soup = BeautifulSoup(requests.get(
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
     data = json.loads(re.search(r"classificacao = (.*?);",
@@ -41,7 +41,7 @@ def getSerie(serie):
 
 
 @app.route('/<serie>/edicao')
-def getSerie(serie):
+def getEdicao(serie):
     soup = BeautifulSoup(requests.get(
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
     data = json.loads(re.search(r"classificacao = (.*?);",
@@ -57,7 +57,7 @@ def getSerie(serie):
 
 
 @app.route('/<serie>/lista_jogos')
-def getSerie(serie):
+def getListaJogos(serie):
     soup = BeautifulSoup(requests.get(
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
     data = json.loads(re.search(r"classificacao = (.*?);",
