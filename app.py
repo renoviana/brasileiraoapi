@@ -37,7 +37,7 @@ def getClassificacao(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     brasileirao = Brasileirao.from_dict(data)
-    return jsonify(brasileirao.classificacao)
+    return jsonify([classificacao.to_dict for classificacao in brasileirao.classificacao])
 
 
 @app.route('/<serie>/edicao')
@@ -69,7 +69,7 @@ def getListaJogos(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     brasileirao = Brasileirao.from_dict(data)
-    return jsonify(brasileirao.lista_jogos)
+    return jsonify([lista_jogos.to_dict for lista_jogos in brasileirao.lista_jogos])
 
 
 if __name__ == "__main__":
