@@ -520,9 +520,9 @@ class Brasileirao:
     lista_jogos_unica: bool
     lista_tipo_unica: bool
     rodada: Rodada
-    artilheiros: Artilheiros
+    artilheiros: List[Artilheiros]
 
-    def __init__(self, classificacao: List[Classificacao], edicao: Edicao, faixas_classificacao: List[FaixasClassificacao], fase: Fase, fases_navegacao: List[FasesNavegacao], lista_jogos: List[ListaJogo], lista_jogos_unica: bool, lista_tipo_unica: bool, rodada: Rodada,artilheiros : Artilheiros) -> None:
+    def __init__(self, classificacao: List[Classificacao], edicao: Edicao, faixas_classificacao: List[FaixasClassificacao], fase: Fase, fases_navegacao: List[FasesNavegacao], lista_jogos: List[ListaJogo], lista_jogos_unica: bool, lista_tipo_unica: bool, rodada: Rodada,artilheiros : List[Artilheiros]) -> None:
         self.classificacao = classificacao
         self.edicao = edicao
         self.faixas_classificacao = faixas_classificacao
