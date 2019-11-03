@@ -160,7 +160,7 @@ def getRodada(serie, rodada):
         url = "https://api.globoesporte.globo.com/tabela/009b5a68-dd09-46b8-95b3-293a2d494366/fase/fase-unica-serieb-2019/rodada/{}/jogos/".format(
             rodada)
 
-    return requests.get(url).json()
+    return jsonify(requests.get(url).json())
 
 
 if __name__ == "__main__":
