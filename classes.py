@@ -560,6 +560,7 @@ class Brasileirao:
         result["lista_jogos_unica"] = from_bool(self.lista_jogos_unica)
         result["lista_tipo_unica"] = from_bool(self.lista_tipo_unica)
         result["rodada"] = to_class(Rodada, self.rodada)
+        result["artilheiros"] = from_list(lambda x: to_class(Artilheiros,x),self.artilheiros)
         return result
 
 
