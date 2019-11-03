@@ -1,0 +1,5 @@
+flask
+requests==2.22.0
+flask-cors
+pytz
+BeautifulSoup
