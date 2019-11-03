@@ -102,6 +102,13 @@ class Artilheiros:
         nome_jogador = from_str(obj['nome'])
         return Artilheiros(time,gols,nome_jogador)
 
+    def to_dict(self) -> dict:
+        result:dict = {}
+        result["time"] = self.time;
+        result["gols"] = self.gols;
+        result["nome_jogador"] = self.nome_jogador
+        return result
+
 class FaixaClassificacao:
     cor: Optional[Cor]
 
