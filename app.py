@@ -37,7 +37,7 @@ def getSerie(serie):
 
 @app.route('/<serie>/classificacao')
 def getClassificacao(serie):
-    return jsonify([classificacao.to_dict() for classificacao in Brasileirao.from_dict(getData(serie).classificacao])
+    return jsonify([classificacao.to_dict() for classificacao in Brasileirao.from_dict(getData(serie)).classificacao])
 
 
 @app.route('/<serie>/edicao')
@@ -77,15 +77,15 @@ def getRodadaAtual(serie):
 
 @app.route('/<serie>/rodada/<rodada>')
 def getRodada(serie, rodada):
-    url=url="https://api.globoesporte.globo.com/tabela/d1a37fa4-e948-43a6-ba53-ab24ab3a45b1/fase/fase-unica-seriea-2019/rodada/{}/jogos/".format(
+    url = url = "https://api.globoesporte.globo.com/tabela/d1a37fa4-e948-43a6-ba53-ab24ab3a45b1/fase/fase-unica-seriea-2019/rodada/{}/jogos/".format(
         rodada)
     if(serie == "b"):
-        url="https://api.globoesporte.globo.com/tabela/009b5a68-dd09-46b8-95b3-293a2d494366/fase/fase-unica-serieb-2019/rodada/{}/jogos/".format(
+        url = "https://api.globoesporte.globo.com/tabela/009b5a68-dd09-46b8-95b3-293a2d494366/fase/fase-unica-serieb-2019/rodada/{}/jogos/".format(
             rodada)
 
     return jsonify(requests.get(url).json())
 
 
 if __name__ == "__main__":
-    port=int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
