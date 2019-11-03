@@ -117,7 +117,7 @@ def getFase(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     brasileirao = Brasileirao.from_dict(data)
-    return jsonify(brasileirao.fase.to_dict)
+    return jsonify(brasileirao.fase.to_dict())
 
 
 @app.route('/<serie>/fases_navegacao')
@@ -149,7 +149,7 @@ def getRodada(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     brasileirao = Brasileirao.from_dict(data)
-    return jsonify(brasileirao.rodada.to_dict)
+    return jsonify(brasileirao.rodada.to_dict())
 
 
 if __name__ == "__main__":
