@@ -137,7 +137,7 @@ def getFasesNavegacao(serie):
 
 
 @app.route('/<serie>/rodada')
-def getRodada(serie):
+def getRodadaAtual(serie):
     soup = BeautifulSoup(requests.get(
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
     data = json.loads(re.search(r"classificacao = (.*?);",
