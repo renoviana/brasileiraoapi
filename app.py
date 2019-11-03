@@ -13,14 +13,6 @@ def getData(serie):
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
     data = json.loads(re.search(r"classificacao = (.*?);",
                                 soup.find("script", {"id": "scriptReact"}).text).group(1))
-    return data
-
-
-def getDataAndArtilheiros(serie):
-    soup = BeautifulSoup(requests.get(
-        "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
-    data = json.loads(re.search(r"classificacao = (.*?);",
-                                soup.find("script", {"id": "scriptReact"}).text).group(1))
     data_artilheiros = soup.find("section", {"class": "artilharia-wrapper"}
                                  ).find_all("div", {"class": "jogador"})
     data["artilheiros"] = [{"time": jogador.find("div", {"class": "jogador-escudo"}).find("img")['alt'],
@@ -32,7 +24,7 @@ def getDataAndArtilheiros(serie):
 
 @app.route('/<serie>')
 def getSerie(serie):
-    return jsonify(Brasileirao.from_dict(getDataAndArtilheiros(serie)).to_dict())
+    return jsonify(Brasileirao.from_dict(getData(serie)).to_dict())
 
 
 @app.route('/<serie>/classificacao')
@@ -52,7 +44,7 @@ def getListaJogos(serie):
 
 @app.route('/<serie>/artilheiros')
 def getArtilheiros(serie):
-    return jsonify(getDataAndArtilheiros(serie).artilheiros.to_dict)
+    return jsonify(getData(serie).artilheiros.to_dict)
 
 
 @app.route('/<serie>/faixas_classificacao')
