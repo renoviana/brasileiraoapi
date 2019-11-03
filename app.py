@@ -21,7 +21,7 @@ def getSerie(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     brasileirao = Brasileirao.from_dict(data)
-    return str(json.dumps(brasileirao.classificacao))
+    return str(brasileirao.to_dict())
 
 
 # @app.route('/<fromx>/<to>')
