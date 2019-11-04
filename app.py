@@ -1,11 +1,14 @@
 import os
 from flask import Flask, jsonify, request, Response
+from flask_cors import CORS
 from classes import Brasileirao
 import re
 import requests
 from bs4 import BeautifulSoup
 import json
+
 app = Flask(__name__)
+CORS(app)
 
 
 def getData(serie):
