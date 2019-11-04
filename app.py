@@ -12,17 +12,26 @@ CORS(app)
 
 
 def getData(serie):
-    soup = BeautifulSoup(requests.get(
-        "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie)).text, 'html.parser')
-    data = json.loads(re.search(r"classificacao = (.*?);",
-                                soup.find("script", {"id": "scriptReact"}).text).group(1))
-    data_artilheiros = soup.find("section", {"class": "artilharia-wrapper"}
-                                 ).find_all("div", {"class": "jogador"})
-    data["artilheiros"] = [{"time": jogador.find("div", {"class": "jogador-escudo"}).find("img")['alt'],
-                            "nome": jogador.find("div", {"class": "jogador-nome"}).text,
-                            "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
-                            } for jogador in data_artilheiros]
+    req = requests.get(
+        "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie))
+    soup = BeautifulSoup(req.text, 'html.parser')
+
+    scriptReact = soup.find("script", {"id": "scriptReact"})
+    jsonData = re.search(r"classificacao = (.*?);", scriptReact.text)
+    data_artilheiros = soup.find(
+        "section", {"class": "artilharia-wrapper"}).find_all("div", {"class": "jogador"})
+
+    data = json.loads(jsonData.group(1))
+    data["artilheiros"] = [getJogador(jogador) for jogador in data_artilheiros]
     return data
+
+
+def getJogador(jogador):
+    return {
+        "time": jogador.find("div", {"class": "jogador-escudo"}).find("img")['alt'],
+        "nome": jogador.find("div", {"class": "jogador-nome"}).text,
+        "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
+    }
 
 
 @app.route('/')
