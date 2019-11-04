@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request, Response
+from flask import Flask, jsonify, request, Response, redirect
 from flask_cors import CORS
 from classes import Brasileirao
 import re
@@ -23,6 +23,11 @@ def getData(serie):
                             "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
                             } for jogador in data_artilheiros]
     return data
+
+
+@app.route('/')
+def Hello(serie):
+    return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
 
 
 @app.route('/<serie>')
