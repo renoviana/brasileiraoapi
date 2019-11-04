@@ -44,7 +44,7 @@ def getListaJogos(serie):
 
 @app.route('/<serie>/artilheiros')
 def getArtilheiros(serie):
-    return jsonify(Brasileirao.from_dict(getData(serie)).artilheiros.to_dict())
+    return jsonify([artilheiro.to_dict() for artilheiro in Brasileirao.from_dict(getData(serie)).artilheiros])
 
 
 @app.route('/<serie>/faixas_classificacao')
