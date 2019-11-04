@@ -12,6 +12,9 @@ CORS(app)
 
 
 def getData(serie):
+    if(serie != "a" and serie != "b"):
+        return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
+
     req = requests.get(
         "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie))
     soup = BeautifulSoup(req.text, 'html.parser')
@@ -24,6 +27,11 @@ def getData(serie):
     data = json.loads(jsonData.group(1))
     data["artilheiros"] = [getJogador(jogador) for jogador in data_artilheiros]
     return data
+
+
+@app.before_request
+def do_something_whenever_a_request_comes_in(serie):
+    print(serie)
 
 
 def getJogador(jogador):
