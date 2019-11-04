@@ -30,8 +30,8 @@ def getData(serie):
 
 
 @app.before_request
-def do_something_whenever_a_request_comes_in(serie):
-    print(serie)
+def do_something_whenever_a_request_comes_in():
+    print(request)
 
 
 def getJogador(jogador):
