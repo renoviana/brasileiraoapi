@@ -2,7 +2,9 @@
 Api com dados do Brasileirão
 https://brasileiraoapi.herokuapp.com
 
-Comandos Disponiveis:<br>
+Serie A e B disponíveis.
+
+Comandos Disponíveis:<br>
 /\<serie\><br>
 /\<serie\>/rodada<br>
 /\<serie\>/artilheiros<br>
