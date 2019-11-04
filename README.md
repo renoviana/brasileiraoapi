@@ -1,4 +1,4 @@
-# brasileiraoapi
+# Brasileirão Api
 Api com dados do Brasileirão
 https://brasileiraoapi.herokuapp.com
 
