@@ -26,7 +26,7 @@ def getData(serie):
 
 
 @app.route('/')
-def Hello(serie):
+def Hello():
     return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
 
 
