@@ -31,7 +31,9 @@ def getData(serie):
 
 @app.before_request
 def do_something_whenever_a_request_comes_in():
-    print(request.path)
+    print(request.path[1:])
+    if(request.path[1:] != "a" and request.path[1:] != "b"):
+        return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
 
 
 def getJogador(jogador):
