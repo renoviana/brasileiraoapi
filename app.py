@@ -54,7 +54,7 @@ def getFaixasClassificacao(serie):
 
 @app.route('/<serie>/fase')
 def getFase(serie):
-    return jsonify(Brasileirao.from_dict(getData).fase.to_dict())
+    return jsonify(Brasileirao.from_dict(getData(serie)).fase.to_dict())
 
 
 @app.route('/<serie>/fases_navegacao')
