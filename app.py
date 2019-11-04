@@ -32,7 +32,6 @@ def Hello():
 
 @app.route('/<serie>')
 def getSerie(serie):
-    print("oi")
     return jsonify(Brasileirao.from_dict(getData(serie)).to_dict())
 
 
