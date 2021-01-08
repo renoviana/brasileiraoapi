@@ -6,103 +6,41 @@ import re
 import requests
 from bs4 import BeautifulSoup
 import json
-
+from datetime import datetime
 app = Flask(__name__)
 CORS(app)
 
 
-def getData(serie):
-    if(serie != "a" and serie != "b"):
-        return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
+def getData(ano = datetime.now().year, xxxx = None):
+    soup = BeautifulSoup(requests.get(f'https://www.webcid.com.br/calendario/{ano}/feriados').content, 'html.parser')
+    feriados = dict()
+    datas = []
+    for item in soup.find('table',{'class':'tabelaPadrao'}).find_all('tr')[1:]:
+        data,dia,feriado = item.find_all('td')
+        datas.append(datetime.strptime(' '.join(data.text.split()), '%d/%m/%Y'))
+        feriados[' '.join(feriado.text.split())] = datetime.strptime(' '.join(data.text.split()), '%d/%m/%Y')
 
-    req = requests.get(
-        "https://globoesporte.globo.com/futebol/brasileirao-serie-{}/".format(serie))
-    soup = BeautifulSoup(req.text, 'html.parser')
+    if(xxxx):
+        return datas
+    return feriados
 
-    scriptReact = soup.find("script", {"id": "scriptReact"})
-    jsonData = re.search(r"classificacao = (.*?);", scriptReact.text)
-    data_artilheiros = soup.find(
-        "section", {"class": "artilharia-wrapper"}).find_all("div", {"class": "jogador"})
-
-    data = json.loads(jsonData.group(1))
-    data["artilheiros"] = [getJogador(jogador) for jogador in data_artilheiros]
-    return data
-
-
-@app.before_request
-def do_something_whenever_a_request_comes_in():
-    print(request.path[1:])
-    if(request.path[1:2] != "a" and request.path[1:2] != "b"):
-        return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
-
-
-def getJogador(jogador):
-    return {
-        "time": jogador.find("div", {"class": "jogador-escudo"}).find("img")['alt'],
-        "nome": jogador.find("div", {"class": "jogador-nome"}).text,
-        "gols": int(jogador.find("div", {"class": "jogador-gols"}).text)
-    }
 
 
 @app.route('/')
 def Hello():
-    return redirect("https://github.com/renoviana/brasileiraoapi", code=302)
+    return jsonify(getData())
 
+@app.route('/datas')
+def getDatas():
+    return jsonify(getData(xxxx=True))
 
-@app.route('/<serie>')
-def getSerie(serie):
-    return jsonify(Brasileirao.from_dict(getData(serie)).to_dict())
+@app.route('/<ano>')
+def getAno(ano):
+    return jsonify(getData(ano=ano))
 
-
-@app.route('/<serie>/classificacao')
-def getClassificacao(serie):
-    return jsonify([classificacao.to_dict() for classificacao in Brasileirao.from_dict(getData(serie)).classificacao])
-
-
-@app.route('/<serie>/edicao')
-def getEdicao(serie):
-    return jsonify(Brasileirao.from_dict(getData(serie)).to_dict)
-
-
-@app.route('/<serie>/lista_jogos')
-def getListaJogos(serie):
-    return jsonify([lista_jogos.to_dict() for lista_jogos in Brasileirao.from_dict(getData(serie)).lista_jogos])
-
-
-@app.route('/<serie>/artilheiros')
-def getArtilheiros(serie):
-    return jsonify([artilheiro.to_dict() for artilheiro in Brasileirao.from_dict(getData(serie)).artilheiros])
-
-
-@app.route('/<serie>/faixas_classificacao')
-def getFaixasClassificacao(serie):
-    return jsonify([faixa.to_dict() for faixa in Brasileirao.from_dict(getData(serie)).faixas_classificacao])
-
-
-@app.route('/<serie>/fase')
-def getFase(serie):
-    return jsonify(Brasileirao.from_dict(getData(serie)).fase.to_dict())
-
-
-@app.route('/<serie>/fases_navegacao')
-def getFasesNavegacao(serie):
-    return jsonify([fases.to_dict() for fases in Brasileirao.from_dict(getData(serie)).fases_navegacao])
-
-
-@app.route('/<serie>/rodada')
-def getRodadaAtual(serie):
-    return jsonify(Brasileirao.from_dict(getData(serie)).rodada.to_dict())
-
-
-@app.route('/<serie>/rodada/<rodada>')
-def getRodada(serie, rodada):
-    url = url = "https://api.globoesporte.globo.com/tabela/d1a37fa4-e948-43a6-ba53-ab24ab3a45b1/fase/fase-unica-seriea-2019/rodada/{}/jogos/".format(
-        rodada)
-    if(serie == "b"):
-        url = "https://api.globoesporte.globo.com/tabela/009b5a68-dd09-46b8-95b3-293a2d494366/fase/fase-unica-serieb-2019/rodada/{}/jogos/".format(
-            rodada)
-
-    return jsonify(requests.get(url).json())
+@app.route('/<ano>/datas')
+def getDatasAno(ano):
+    return jsonify(getData(ano=ano,xxxx=True))
 
 
 if __name__ == "__main__":
