@@ -4,7 +4,7 @@ https://brasileiraoapi.herokuapp.com
 
 Serie A e B disponíveis.
 
-Comandos Disponíveis:<br>
+Endpoints Disponíveis:<br>
 /\<serie\><br>
 /\<serie\>/rodada<br>
 /\<serie\>/artilheiros<br>
