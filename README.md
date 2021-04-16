@@ -16,3 +16,4 @@ Endpoints Disponíveis:<br>
 /\<serie\>/rodada<br>
 /\<serie\>/rodada/\<n rodada\>
 
+
