@@ -15,3 +15,4 @@ Endpoints Disponíveis:<br>
 /\<serie\>/lista_jogos<br>
 /\<serie\>/rodada<br>
 /\<serie\>/rodada/\<n rodada\>
+
